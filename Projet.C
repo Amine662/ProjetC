@@ -258,7 +258,7 @@ int main()
         teteListe = ajouterCompte(teteListe, 444 , "Malik Monk", 800.0);
         teteListe = ajouterCompte(teteListe,700,"Rayen Vendredi",600.0);
         teteListe = ajouterCompte(teteListe, 333 , "Ahmed Lamta", 900.0);
-        teteListe = ajouterCompte(teteListe, 500 , "Salma Hayek", 100.0);
+        teteListe = ajouterCompte(teteListe, 500 , "Salma Tounsi", 100.0);
         // initial data//
 
     int choix;
