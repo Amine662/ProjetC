@@ -86,7 +86,7 @@ CompteBancaire *Supprimercompte(CompteBancaire *teteListe, int numeroCompte) {
         if (precedent != NULL) {
             precedent->suivant=courant->suivant;
         } else {
-            teteListe=courant->suivant; // Update the head of the list
+            teteListe=courant->suivant; 
         }
         free(courant);
         printf("Le compte a ete supprime avec succes.\n");
@@ -134,7 +134,7 @@ typedef struct Transaction
     int numeroCompte;
     float montant;
     char type; // 'R' pour retrait, 'V' pour versement
-    struct Transaction *suivant;  // Add this line  
+    struct Transaction *suivant;   
 } Transaction;
 // Libérer la mémoire allouée pour la liste des comptes
 void libererMemoireListe(CompteBancaire **teteListe)
@@ -254,6 +254,11 @@ int main()
         //initial data//
         teteListe = ajouterCompte(teteListe, 123, "Omar Jerbi", 1000.0);
         teteListe = ajouterCompte(teteListe, 456, "Kamel Presse", 500.0);
+        teteListe = ajouterCompte(teteListe,600,"Ayoub Poldiro",450.0);
+        teteListe = ajouterCompte(teteListe, 444 , "Malik Monk", 800.0);
+        teteListe = ajouterCompte(teteListe,700,"Rayen Vendredi",600.0);
+        teteListe = ajouterCompte(teteListe, 333 , "Ahmed Lamta", 900.0);
+        teteListe = ajouterCompte(teteListe, 500 , "Salma Hayek", 100.0);
         // initial data//
 
     int choix;
