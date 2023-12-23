@@ -4,11 +4,10 @@
 #include<malloc.h>                            
 #include<math.h>
 #include<time.h>
-void clearScreen()
+void clearScreen() 
 {
-    system("clear");
+    system("clear || cls"); 
 }
-
 typedef struct CompteBancaire {
     int numeroCompte;
     char nomTitulaire[50];
@@ -64,7 +63,7 @@ CompteBancaire* MAJcompte(CompteBancaire *teteListe, int numeroCompte, const cha
         if (courant->numeroCompte==numeroCompte) {
             strncpy(courant->nomTitulaire,nouveauNomTitulaire,sizeof(courant->nomTitulaire));
             courant->solde=nouveauSolde;
-            printf("Le compte a été mis à jour avec succès.\n");
+            printf("Le compte a ete mis a jour avec succes.\n");
             printf("Nouvelles informations du compte :\n");
             printf("Numéro de compte: %d\n", courant->numeroCompte);
             printf("Titulaire du compte: %s\n", courant->nomTitulaire);
@@ -73,7 +72,7 @@ CompteBancaire* MAJcompte(CompteBancaire *teteListe, int numeroCompte, const cha
         }
         courant=courant->suivant;
     }
-    printf("Aucun compte trouvé avec le numéro : %d\n", numeroCompte);
+    printf("Aucun compte trouve avec le numéro : %d\n", numeroCompte);
     return teteListe; 
 }
 CompteBancaire *Supprimercompte(CompteBancaire *teteListe, int numeroCompte) {
@@ -90,9 +89,9 @@ CompteBancaire *Supprimercompte(CompteBancaire *teteListe, int numeroCompte) {
             teteListe=courant->suivant; // Update the head of the list
         }
         free(courant);
-        printf("Le compte a été supprimé avec succès.\n");
+        printf("Le compte a ete supprime avec succes.\n");
     } else {
-        printf("Aucun compte trouvé avec le numéro : %d\n", numeroCompte);
+        printf("Aucun compte trouvé avec le numero : %d\n", numeroCompte);
     }
     return teteListe;
 }
@@ -127,7 +126,7 @@ void Affichercompte(CompteBancaire **teteListe, int numeroCompte) {
         }
         courant = courant->suivant;
     }
-    printf("Aucun compte trouvé avec le numéro : %d\n", numeroCompte);
+    printf("Aucun compte trouve avec le numero : %d\n", numeroCompte);
 }
 // Structure représentant une transaction bancaire
 typedef struct Transaction
@@ -168,7 +167,7 @@ void ajouterTransaction(Transaction **listeTransactions, int numeroCompte, float
     Transaction *nouvelleTransaction = (Transaction *)malloc(sizeof(Transaction));
     if (nouvelleTransaction == NULL)
     {
-        printf("Erreur d'allocation mémoire pour la transaction.\n");
+        printf("Erreur d allocation memoire pour la transaction.\n");
         exit(EXIT_FAILURE);
     }
     nouvelleTransaction->numeroCompte = numeroCompte;
@@ -208,7 +207,7 @@ void gererTransactions(CompteBancaire *compte, Transaction **listeTransactions)
         if (montant > 0 && montant<=compte->solde)
         {
             compte->solde-=montant;
-            printf("Retrait de %.2f effectué avec succès.\n", montant);
+            printf("Retrait de %.2f effectue avec succes.\n", montant);
             ajouterTransaction(listeTransactions, compte->numeroCompte, montant, 'R');
         }
         else
@@ -222,7 +221,7 @@ void gererTransactions(CompteBancaire *compte, Transaction **listeTransactions)
         if (montant > 0)
         {
             compte->solde += montant;
-            printf("Versement de %.2f effectué avec succès.\n", montant);
+            printf("Versement de %.2f effectue avec succes.\n", montant);
             ajouterTransaction(listeTransactions, compte->numeroCompte, montant, 'V');
         }
         else
@@ -238,7 +237,7 @@ void gererTransactions(CompteBancaire *compte, Transaction **listeTransactions)
 // Fonction pour afficher les transactions précédentes d'un compte
 void afficherTransactionsPrecedentes(CompteBancaire *compte, Transaction *listeTransactions)
 {
-    printf("Transactions précédentes pour le compte %d :\n", compte->numeroCompte);
+    printf("Transactions precedentes pour le compte %d :\n", compte->numeroCompte);
     while (listeTransactions!=NULL)
     {
         if (listeTransactions->numeroCompte==compte->numeroCompte)
@@ -252,9 +251,10 @@ Transaction *listeTransactions=NULL;
 int main()
 {
         CompteBancaire *teteListe=NULL;
+        //initial data//
         teteListe = ajouterCompte(teteListe, 123, "Omar Jerbi", 1000.0);
         teteListe = ajouterCompte(teteListe, 456, "Kamel Presse", 500.0);
-// initial data//
+        // initial data//
 
     int choix;
     do
@@ -271,7 +271,7 @@ int main()
                 int numeroCompte;
                 char nomTitulaire[50];
                 float solde;
-                printf("Entrez le numéro de compte : ");
+                printf("Entrez le numero de compte : ");
                 scanf("%d", &numeroCompte);
                 printf("Entrez le nom du titulaire : ");
                 scanf("%s", nomTitulaire);
@@ -286,7 +286,7 @@ int main()
                 int numeroCompteMAJ;
                 char nouveauNomTitulaire[50];
                 float nouveauSolde;
-                printf("Entrez le numéro de compte à mettre à jour : ");
+                printf("Entrez le numero de compte a mettre a jour : ");
                 scanf("%d", &numeroCompteMAJ);
                 CompteBancaire *compteMAJ = trouverCompte(teteListe, numeroCompteMAJ);
 
@@ -301,10 +301,10 @@ int main()
                  }        
                  else 
                  {
-                     printf("Aucun compte trouvé avec le numéro : %d\n", numeroCompteMAJ);
+                     printf("Aucun compte trouve avec le numero : %d\n", numeroCompteMAJ);
                  }
                  
-                 printf("\nAppuyez sur n'importe quelle touche pour revenir au menu...");
+                 printf("\nAppuyez sur n importe quelle touche pour revenir au menu...");
                  getchar();
                  getchar();
                  break;
@@ -313,7 +313,7 @@ int main()
             {
                 clearScreen();
                 int numeroCompteTransaction;
-                printf("Entrez le numéro de compte pour les transactions : ");
+                printf("Entrez le numero de compte pour les transactions : ");
                 scanf("%d", &numeroCompteTransaction);
                 CompteBancaire *compteTransaction = trouverCompte(teteListe, numeroCompteTransaction);
                 if (compteTransaction != NULL)
@@ -323,9 +323,9 @@ int main()
                 }
                 else
                 {
-                    printf("Aucun compte trouvé avec le numéro : %d\n", numeroCompteTransaction);
+                    printf("Aucun compte trouve avec le numéro : %d\n", numeroCompteTransaction);
                 }
-                printf("\nAppuyez sur n'importe quelle touche pour revenir au menu...");
+                printf("\nAppuyez sur n importe quelle touche pour revenir au menu...");
                 getchar();
                 getchar();
                 break;
@@ -334,10 +334,10 @@ int main()
             {
 				clearScreen();
 				int numeroCompteSupprime;
-				printf("Entrez le numéro de compte à supprimer : ");
+				printf("Entrez le numero de compte à supprimer : ");
 				scanf("%d", &numeroCompteSupprime);
 				teteListe = Supprimercompte(teteListe, numeroCompteSupprime);
-				printf("\nAppuyez sur n'importe quelle touche pour revenir au menu...");
+				printf("\nAppuyez sur n importe quelle touche pour revenir au menu...");
 				getchar();
 				getchar();
 				break;
@@ -346,10 +346,10 @@ int main()
 			{
 				clearScreen();
 				int numeroCompteAffiche;
-				printf("Entrez le numéro de compte à afficher : ");
+				printf("Entrez le numero de compte a afficher : ");
 				scanf("%d", &numeroCompteAffiche);
 				Affichercompte(&teteListe, numeroCompteAffiche);
-				printf("\nAppuyez sur n'importe quelle touche pour revenir au menu...");
+				printf("\nAppuyez sur n importe quelle touche pour revenir au menu...");
 				getchar();
 				getchar();
 				
@@ -360,7 +360,7 @@ int main()
 				clearScreen();
 				printf("Liste des clients :\n");
 				afficherListe(teteListe);
-				printf("\nAppuyez sur n'importe quelle touche pour revenir au menu...");
+				printf("\nAppuyez sur n importe quelle touche pour revenir au menu...");
 				getchar();
 				getchar();
 				break;
@@ -369,7 +369,7 @@ int main()
 			{
 				clearScreen();
 				int numeroCompteG;
-				printf("Entrez le numéro de compte pour afficher les transactions précédentes : ");
+				printf("Entrez le numero de compte pour afficher les transactions precedentes : ");
 				scanf("%d", &numeroCompteG);
                 CompteBancaire *compteTransactionsPrecedentes = trouverCompte(teteListe, numeroCompteG);
                 if (compteTransactionsPrecedentes != NULL)
@@ -379,9 +379,9 @@ int main()
                 }
                 else
                 {
-                    printf("Aucun compte trouvé avec le numéro : %d\n", numeroCompteG);
+                    printf("Aucun compte trouvé avec le numero : %d\n", numeroCompteG);
                 }
-                printf("\nAppuyez sur n'importe quelle touche pour revenir au menu...");
+                printf("\nAppuyez sur n importe quelle touche pour revenir au menu...");
                 getchar();
                 getchar();
                 break;
@@ -390,7 +390,7 @@ int main()
             {
             	libererMemoireListe(&teteListe);
             	libererMemoireTransactions(&listeTransactions);
-            	printf("Merci d'avoir utilisé E-Bank. A bientot !\n");
+            	printf("Merci d avoir utilisé E-Bank. A bientot !\n");
             	exit(0);  
             	break;
             }
